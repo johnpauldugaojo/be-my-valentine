@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Be My Valentine? 💕</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="hearts-bg" id="heartsBackground"></div>
+
+    <div class="container">
+      <div id="questionSection">
+        <h1>Will You Be My Valentine? 💝</h1>
+        <div class="heart">❤️</div>
+        <p>
+          I've been thinking about this for a while... and I just had to ask
+          you! 😊
+        </p>
+
+        <div class="buttons-container">
+          <button id="yesBtn" onclick="handleYes()">Yes! 💕</button>
+          <button
+            id="noBtn"
+            onmouseover="moveButton(event)"
+            onclick="moveButton(event)"
+          >
+            No
+          </button>
+        </div>
+      </div>
+
+      <div id="successSection" class="success-message">
+        <div class="heart">💖✨💖</div>
+        <h2>Yay! You said YES! 🎉</h2>
+        <div style="width: 100%; max-width: 400px; margin: 20px auto">
+          <div
+            class="tenor-gif-embed"
+            data-postid="10157077264497509913"
+            data-share-method="host"
+            data-aspect-ratio="1.76812"
+            data-width="100%"
+          >
+            <a
+              href="https://tenor.com/view/aww-sweet-little-rascals-gif-10157077264497509913"
+              >Aww Sweet GIF</a
+            >
+            from <a href="https://tenor.com/search/aww-gifs">Aww GIFs</a>
+          </div>
+        </div>
+        <p>You just made me the happiest person ever! 💕</p>
+        <p>I can't wait to spend this Valentine's Day with you! 😊❤️</p>
+      </div>
+    </div>
+
+    <script
+      type="text/javascript"
+      async
+      src="https://tenor.com/embed.js"
+    ></script>
+    <script>
+      const noBtn = document.getElementById('noBtn');
+      let isMoving = false;
+
+      function moveButton(event) {
+        if (isMoving) return;
+        isMoving = true;
+
+        event.preventDefault();
+
+        const maxX = window.innerWidth - noBtn.offsetWidth - 40;
+        const maxY = window.innerHeight - noBtn.offsetHeight - 40;
+
+        let randomX, randomY;
+        do {
+          randomX = Math.random() * maxX;
+          randomY = Math.random() * maxY;
+        } while (
+          Math.abs(randomX - noBtn.offsetLeft) < 100 &&
+          Math.abs(randomY - noBtn.offsetTop) < 100
+        );
+
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+
+        setTimeout(() => {
+          isMoving = false;
+        }, 300);
+      }
+
+      function handleYes() {
+        document.getElementById('questionSection').style.display = 'none';
+        document.getElementById('successSection').style.display = 'block';
+        createHeartExplosion();
+      }
+
+      function createHeartExplosion() {
+        const heartsContainer = document.getElementById('heartsBackground');
+        for (let i = 0; i < 30; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'heart-particle';
+          heart.textContent = '❤️';
+          heart.style.left = Math.random() * 100 + '%';
+          heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+          heart.style.animationDelay = Math.random() * 2 + 's';
+          heartsContainer.appendChild(heart);
+        }
+      }
+
+      // Initial falling hearts
+      window.addEventListener('load', () => {
+        const heartsContainer = document.getElementById('heartsBackground');
+        for (let i = 0; i < 15; i++) {
+          const heart = document.createElement('div');
+          heart.className = 'heart-particle';
+          heart.textContent = '💕';
+          heart.style.left = Math.random() * 100 + '%';
+          heart.style.animationDuration = Math.random() * 5 + 3 + 's';
+          heart.style.animationDelay = Math.random() * 5 + 's';
+          heartsContainer.appendChild(heart);
+        }
+      });
+    </script>
+  </body>
+</html>
